@@ -3,3 +3,4 @@ model
 Config.json
 export.txt
 .DS_Store
+*.wav
