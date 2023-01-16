@@ -9,7 +9,8 @@ from tkinter import filedialog as fd
 
 
 window = tk.Tk()
-window.geometry("900x300")
+window.geometry("500x300")
+window.iconphoto(False, tk.PhotoImage(file='logo.png'))
 window.title("SbobbinaPippo")
 
 # create a speech recognition object
@@ -49,8 +50,8 @@ def get_large_audio_transcription(path):
             audio_listened = r.record(source)
             # try converting it to text
             try:
-                text = r.recognize_vosk(audio_listened, language="it-IT")
-                # text = r.recognize_google(audio_listened, language="it-IT")
+                # text = r.recognize_vosk(audio_listened, language="it-IT")
+                text = r.recognize_google(audio_listened, language="it-IT")
             except sr.UnknownValueError as e:
                 print("Error:", str(e))
             else:
