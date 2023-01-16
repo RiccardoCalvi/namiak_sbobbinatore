@@ -91,11 +91,11 @@ def avvia():
     delete(r'audio-chunks')
     text = "Lavoro Terminato!"
     text_output = tk.Label(window, text=text, fg="green", font=("Helvetica", 16))
-    text_output.grid(row=1, column=1, padx=50, sticky="W")
+    text_output.grid(row=2, column=1, padx=50, sticky="W")
     
 
 button = tk.Button(text="Seleziona File", command=avvia)
-button.grid(row=3, column=3, pady=0, sticky="W")
+button.grid(row=1, column=1)
 
 if __name__ == "__main__":
     window.mainloop()
