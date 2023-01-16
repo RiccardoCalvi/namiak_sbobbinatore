@@ -4,7 +4,13 @@ import os
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 import shutil
-import ast
+import tkinter as tk
+from tkinter import filedialog as fd
+
+
+window = tk.Tk()
+window.geometry("900x300")
+window.title("SbobbinaPippo")
 
 # create a speech recognition object
 r = sr.Recognizer()
@@ -43,8 +49,8 @@ def get_large_audio_transcription(path):
             audio_listened = r.record(source)
             # try converting it to text
             try:
-                # text = r.recognize_vosk(audio_listened, language="it-IT")
-                text = r.recognize_google(audio_listened, language="it-IT")
+                text = r.recognize_vosk(audio_listened, language="it-IT")
+                # text = r.recognize_google(audio_listened, language="it-IT")
             except sr.UnknownValueError as e:
                 print("Error:", str(e))
             else:
@@ -67,16 +73,28 @@ def delete(path):
         raise ValueError("Path {} is not a file or dir.".format(path))
 
 
-if (os.path.exists('output.txt')):
-    delete(r'output.txt')
+if (os.path.exists('export.txt')):
+    delete(r'export.txt')
 if (os.path.exists('audio-chunks')):
     delete(r'audio-chunks')
     
+def avvia():
+    f = open("export.txt","w+")
+    file = fd.askopenfilename()
+    # sound = AudioSegment.from_mp3(src)
+    # sound.export(dst, format="wav")
+    out = get_large_audio_transcription(file)
+    f.write(out)
 
+        
+    delete(r'audio-chunks')
+    text = "Lavoro Terminato!"
+    text_output = tk.Label(window, text=text, fg="green", font=("Helvetica", 16))
+    text_output.grid(row=1, column=1, padx=50, sticky="W")
+    
 
-f = open("export.txt","w+")
-file = "audio.wav"
-out = get_large_audio_transcription(file)
-f.write(out)
-delete(r'audio-chunks')
+button = tk.Button(text="Seleziona File", command=avvia)
+button.grid(row=3, column=3, pady=0, sticky="W")
 
+if __name__ == "__main__":
+    window.mainloop()
